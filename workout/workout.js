@@ -1,17 +1,5 @@
 import WorkoutModel from './model/workout-model.js'
 import 'dotenv/config'
-import mongoose from 'mongoose';
-
-//Set up mongoose connection
-let mongoDB = process.env.NODE_ENV === "production" ? process.env.DB_CLOUD_URI : process.env.DB_LOCAL_URI;
-mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-
-let db = mongoose.connection;
-db.on('connected', function() {
-  console.log('MongoDB connected successfully')
-});
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 export async function addWorkout(req, res) {
     try {

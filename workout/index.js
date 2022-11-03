@@ -2,8 +2,10 @@ import express from 'express';
 // import cors from 'cors';
 import { addWorkout, getAllWorkout, getWorkoutByDate, 
     getWorkoutByType, updateWorkout, deleteWorkout } from './workout.js';
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }))
@@ -15,6 +17,26 @@ app.use(express.json())
 // app.use(cookieParser())
 
 const router = express.Router()
+
+//Set up mongoose connection
+let mongoDB = process.env.NODE_ENV === "production" ? process.env.DB_CLOUD_URI : process.env.DB_LOCAL_URI;
+
+if (process.env.NODE_ENV === "test") {
+    // Use temp storage for testing
+    let memdb = await MongoMemoryServer.create();
+    mongoDB = memdb.getUri();
+} 
+
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+let db = mongoose.connection;
+db.on('connected', function() {
+    if (!(process.env.NODE_ENV === "test")) {
+        console.log('MongoDB connected successfully')
+    }
+});
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 // Controller will contain all the User-defined Routes
 router.get('/', (_, res) => res.send('Hello World from workout'));
@@ -35,3 +57,5 @@ app.use('/api/workout', router).all((_, res) => {
 })
 
 app.listen(PORT, () => console.log(`workout listening on port ${PORT}`));
+
+export { app };
