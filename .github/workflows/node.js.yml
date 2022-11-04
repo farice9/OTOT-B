@@ -11,7 +11,7 @@ on:
 
 env:
   PROJECT_ID: cs3219-otot-b-367606
-  SERVICE: otot-b-deploy
+  SERVICE: otot-deploy
   REGION: asia-southeast1
 
 jobs:
