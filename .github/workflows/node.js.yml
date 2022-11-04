@@ -73,3 +73,4 @@ jobs:
           service: ${{ env.SERVICE }}
           image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
           region: ${{ env.REGION }}
+          
