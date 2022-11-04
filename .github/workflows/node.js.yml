@@ -41,7 +41,7 @@ jobs:
     - run: npm test
   
   deploy:
-  needs: test-build
+    needs: test-build
     runs-on: ubuntu-latest
 
     defaults:
