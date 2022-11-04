@@ -46,7 +46,7 @@ describe ('GET api/workout/getAllWorkout', () => {
                 const body = res.body;
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.should.have.lengthOf(1);
+                res.body.should.have.lengthOf(3);
                 done();
             })
             .catch((err) => done(err));
