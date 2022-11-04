@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  workout:
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      DB_LOCAL_URI: "mongodb://mongo:27017/mydb"
+      # TOKEN_KEY: ""  # if this is not provided, TOKEN_KEY_FILE will be used
+      # CORS_ORIGIN: "http://localhost:3000"
+  mongo:
+    image: mongo:4.2.23-rc1
+    volumes:
+      - user_mongo_volume:/data/db
+  
+networks:
+  default:
+    name: workout-net
+
+volumes:
+  user_mongo_volume:
