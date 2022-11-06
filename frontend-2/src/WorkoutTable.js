@@ -13,6 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import WorkoutEditDialog from './WorkoutEditDialog';
+import Box from "@mui/material/Box";
 
 import apis from './api';
 
@@ -45,9 +47,9 @@ export default function WorkoutTable() {
 
   const [workoutList, setWorkoutList] = useState(); 
 
-//   const handleEdit = (id) => {
-//     alert("editing")
-//   }
+  const handleEdit = (id) => {
+    alert("editing")
+  }
 
   const handleDelete = async (id) => {
     let isMounted = true;
@@ -56,15 +58,14 @@ export default function WorkoutTable() {
       
       await apis.deleteWorkout(id)
       .then(workout => {
-        if (isMounted) setWorkoutList(workout.data);
         alert("Workout succesfully deleted.");
       })
       .catch((err) => {
-        console.log(err);
         alert("Problem deleting workout");
       })
     }
     deleteWorkout();
+    console.log(workoutList);
     return () => { isMounted = false };
   }
 
@@ -89,6 +90,12 @@ export default function WorkoutTable() {
 
   return (
     <div>
+      <Box sx={{
+        margin: "auto",
+        pl: 6,
+        pr: 6,
+        pb: 10
+      }}>
       <TableContainer component={Paper}>
         <Table className={classes.table} sx={{margin:'10'}} aria-label="simple table">
           <TableHead style = {{backgroundColor: "#de3f59"}}>
@@ -103,19 +110,20 @@ export default function WorkoutTable() {
           <TableBody>
             {workoutList.map((row) => (
               <TableRow key={row._id}>
-                <TableCell component="th" scope="row">{row.date.slice(0,10)}</TableCell>
-                <TableCell align="left">{row.type}</TableCell>
-                <TableCell align="left">{row.duration}</TableCell>
+                <TableCell component="th" style={{width:100}} scope="row">{row.date.slice(0,10)}</TableCell>
+                <TableCell align="left" style={{width:100}}>{row.type}</TableCell>
+                <TableCell align="left" style={{width:100}} >{row.duration}</TableCell>
                 <TableCell align="left">{row.description}</TableCell>
-                <TableCell align="left">
+                <TableCell align="right" style={{width:50}}>
                   <div>
                     <span style={{
                       display: 'flex',
                       flexWrap: 'wrap',
-                      float: "right"
+                      float: "left",
+                      width: 100
                     }}>
-                      {/* <EditGameDialog gameInfo = {row}/>
-                      &emsp; */}
+                      <WorkoutEditDialog workoutInfo = {row}/>
+                      &emsp;
                       <IconButton style={{ padding: 5 }} onClick = {() => handleDelete(row._id)}>
                         <DeleteIcon/>
                       </IconButton>
@@ -127,7 +135,7 @@ export default function WorkoutTable() {
           </TableBody>
         </Table>
       </TableContainer>
-
+      </Box>
     </div>
   );
 }

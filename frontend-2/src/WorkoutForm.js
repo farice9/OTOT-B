@@ -63,7 +63,7 @@ export default function WorkoutForm() {
       
         <Stack align='center' direction="row" spacing={4}>
           <FormControl sx={{height:100}}>
-            <FormLabel align='left' id="workout-date-label">Date</FormLabel>
+            <FormLabel align='left' id="workout-date-label">Date*</FormLabel>
             <TextField 
               id="outline-required" 
               type="date" 
@@ -75,7 +75,7 @@ export default function WorkoutForm() {
           
 
           <FormControl>
-            <FormLabel id="workout-type-label">Workout Type</FormLabel>
+            <FormLabel id="workout-type-label">Workout Type*</FormLabel>
             <RadioGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
@@ -88,7 +88,7 @@ export default function WorkoutForm() {
           </FormControl>
 
           <FormControl>
-            <FormLabel align='left' id="workout-type-label">Duration</FormLabel>
+            <FormLabel align='left' id="workout-type-label">Duration*</FormLabel>
             <TextField 
               variant='outlined' 
               margin="dense" 
@@ -102,7 +102,7 @@ export default function WorkoutForm() {
           </FormControl>
           
           <FormControl>
-            <FormLabel align='left' id="workout-description-label">Describe your workout</FormLabel>
+            <FormLabel align='left' id="workout-description-label">Describe your workout*</FormLabel>
             <TextField variant='outlined' multiline={true} minRows="1" maxRows="1" margin="dense" id="description" required={true} type="description" onChange ={handleDescriptionChange}></TextField>
           </FormControl>
           

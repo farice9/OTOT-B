@@ -115,7 +115,7 @@ export async function updateWorkout(req, res) {
         );
         
         if (workoutUpdated) {
-            console.log(`Workout ${_id} updated`)
+            console.log(`Workout ${_id} updated: ${workoutUpdated}`)
             return res.status(201).json({message: 'Workout details updated!', newWorkoutDetail: workoutUpdated});
         }
 
@@ -137,7 +137,6 @@ export async function updateWorkout(req, res) {
 export async function deleteWorkout(req, res) {
     try {
         const _id = req.params.id;
-        console.log(_id);
 
         const resp = await WorkoutModel.findByIdAndDelete(_id)
 
