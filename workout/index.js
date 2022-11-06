@@ -1,5 +1,5 @@
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
 import { addWorkout, getAllWorkout, getWorkoutByDate, 
     getWorkoutByType, updateWorkout, deleteWorkout } from './workout.js';
 import mongoose from 'mongoose';
@@ -10,11 +10,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN.split("|"),
-//     credentials: true,
-// }))
-// app.use(cookieParser())
+app.use(cors({}))
 
 const router = express.Router()
 
@@ -45,7 +41,7 @@ router.get('/getAllWorkout', getAllWorkout);
 router.get('/getWorkoutByDate/:year(\\d{4})-:month(\\d{2})-:day(\\d{2})', getWorkoutByDate);
 router.get('/getWorkoutByType/:type', getWorkoutByType);
 router.put('/updateWorkout', updateWorkout);
-router.delete('/deleteWorkout', deleteWorkout);
+router.delete('/deleteWorkout/:id', deleteWorkout);
 
 router.get('*', (req, res) => {
     return res.status(404).json({message: 'Non-existing route'});

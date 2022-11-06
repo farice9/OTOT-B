@@ -1,4 +1,5 @@
 import WorkoutModel from './model/workout-model.js'
+import mongoose from 'mongoose';
 import 'dotenv/config'
 
 export async function addWorkout(req, res) {
@@ -135,7 +136,8 @@ export async function updateWorkout(req, res) {
 
 export async function deleteWorkout(req, res) {
     try {
-        const _id = req.body._id;
+        const _id = req.params.id;
+        console.log(_id);
 
         const resp = await WorkoutModel.findByIdAndDelete(_id)
 
