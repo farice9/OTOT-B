@@ -120,8 +120,8 @@ describe ('UPDATE api/workout/updateWorkout', () => {
 
 describe ('DELETE api/workout/deleteWorkout', () => {
     it('Should delete the specified workout record', (done) => {
-        request(app).delete('/api/workout/deleteWorkout')
-            .send({_id: objId})
+        request(app).delete(`/api/workout/deleteWorkout/${objId}`)
+            .send()
             .then((res) => {
                 res.should.have.status(200);
                 const body = res.body;
