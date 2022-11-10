@@ -13,6 +13,10 @@ let WorkoutSchema = new Schema({
     duration: {
         type: Number,
         required: true,
+        validate : {
+            validator : Number.isInteger,
+            message   : '{VALUE} is not an integer value'
+            },
         min: [0, "Duration cannot be negative"],
         max: [1440, "Duration cannot exceed a day"]
     },
